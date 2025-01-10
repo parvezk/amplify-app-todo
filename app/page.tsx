@@ -7,7 +7,7 @@ import "./../app/app.css";
 import { Amplify } from "aws-amplify";
 import outputs from "@/amplify_outputs.json";
 import "@aws-amplify/ui-react/styles.css";
-import { useAuthenticator } from "@aws-amplify/ui-react";
+import { user, useAuthenticator } from "@aws-amplify/ui-react";
 
 Amplify.configure(outputs);
 
@@ -36,10 +36,10 @@ export default function App() {
   function deleteTodo(id: string) {
     client.models.Todo.delete({ id });
   }
-
+  console.log(user, user?.signInDetails);
   return (
     <main>
-      <h1>My todos</h1>
+      <h1>{user?.signInDetails?.loginId}'s todos</h1>
       <button onClick={createTodo}>+ new</button>
       <ul>
         {todos.map((todo) => (
